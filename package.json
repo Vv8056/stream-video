@@ -1,14 +1,14 @@
 {
-    "name": "vercel-stream-proxy",
-    "version": "1.0.0",
-"scripts": {
-    "dev": "vercel dev",
-    "start": "vercel dev"
-},
-"engines": {
+  "name": "yt-stream-api",
+  "version": "1.0.0",
+  "description": "streaming API. Ready to host on Vercel.",
+  "scripts": {
+    "start": "node local-server.js"
+  },
+  "engines": {
     "node": "18.x"
-}, 
-"dependencies": {
+  },
+  "dependencies": {
     "node-fetch": "^2.6.7"
-    }
+  }
 }
