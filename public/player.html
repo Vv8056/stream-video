@@ -1,22 +1,79 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Stream Proxy Player</title>
-</head>
-<body>
-<h1>Stream Proxy Player</h1>
-<script>
-const params = new URLSearchParams(location.search);
-const src = params.get('src') || '';
-if (!src) document.body.innerHTML += '<p style="color:crimson">Pass ?src=URL to stream</p>';
-const video = document.createElement('video');
-video.controls = true;
-video.width = 800;
-video.crossOrigin = 'anonymous';
-video.src = '/api/edge-stream?src=' + encodeURIComponent(src);
-document.body.appendChild(video);
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Stream Proxy Player</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #fafafa;
+        padding: 2rem;
+        text-align: center;
+      }
+      h1 {
+        color: #333;
+      }
+      input {
+        width: 70%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+      button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        background: #0070f3;
+        color: #fff;
+        cursor: pointer;
+        margin-left: 0.5rem;
+      }
+      button:hover {
+        background: #0059c9;
+      }
+      video {
+        margin-top: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎥 Stream Proxy Player</h1>
+    <p>Paste your video URL below and click “Play”</p>
+    <div>
+      <input type="text" id="videoUrl" placeholder="Enter video URL here" />
+      <button onclick="loadVideo()">Play</button>
+    </div>
+    <video id="player" width="800" controls></video>
+
+    <script>
+      const input = document.getElementById('videoUrl');
+      const video = document.getElementById('player');
+
+      // Auto-load if ?src= is present in URL
+      const params = new URLSearchParams(location.search);
+      const src = params.get('src');
+      if (src) {
+        input.value = src;
+        playVideo(src);
+      }
+
+      function loadVideo() {
+        const url = input.value.trim();
+        if (!url) return alert('Enter a valid video URL');
+        playVideo(url);
+      }
+
+      function playVideo(url) {
+        video.src = '/api/edge-stream?src=' + encodeURIComponent(url);
+        video.play().catch(() => {
+          alert('Unable to start video. Check if URL is valid and accessible.');
+        });
+      }
+    </script>
+  </body>
 </html>
