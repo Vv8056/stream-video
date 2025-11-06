@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stream Proxy Player</title>
+</head>
+<body>
+<h1>Stream Proxy Player</h1>
+<script>
+const params = new URLSearchParams(location.search);
+const src = params.get('src') || '';
+if (!src) document.body.innerHTML += '<p style="color:crimson">Pass ?src=URL to stream</p>';
+const video = document.createElement('video');
+video.controls = true;
+video.width = 800;
+video.crossOrigin = 'anonymous';
+video.src = '/api/edge-stream?src=' + encodeURIComponent(src);
+document.body.appendChild(video);
+</script>
+</body>
+</html>

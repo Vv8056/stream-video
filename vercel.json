@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "functions": {
+"api/edge-stream.js": {
+    "runtime": "edge"
+}
+},
+"routes": [
+        { "src": "/api/stream", "dest": "/api/stream.js" },
+        { "src": "/api/edge-stream", "dest": "/api/edge-stream.js" }
+    ]
+}
